@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>حسابداری آبان</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172033;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}.top{background:#0f172a;color:#fff;padding:24px 18px 22px;border-radius:0 0 26px 26px;position:sticky;top:0;z-index:5}.brand{display:flex;justify-content:space-between;align-items:center}.brand h1{margin:0;font-size:22px}.brand small{opacity:.7}.date{font-size:12px;opacity:.7;margin-top:5px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.card{background:rgba(255,255,255,.1);padding:13px;border-radius:16px}.card b{display:block;font-size:17px;margin-top:5px}.content{padding:16px}.section{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 10px}.section h2{font-size:16px;margin:0}.btn{border:0;border-radius:12px;padding:10px 13px;background:#0f172a;color:#fff;font-weight:700}.btn.light{background:#e8edf5;color:#172033}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.tile{background:#fff;border-radius:18px;padding:17px;box-shadow:0 5px 20px #1522380d}.tile .ico{font-size:25px}.tile b{display:block;margin-top:9px}.tile span{font-size:12px;color:#748096}.list{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 5px 20px #1522380d}.row{padding:14px;border-bottom:1px solid #eef1f5;display:flex;justify-content:space-between;gap:10px}.row:last-child{border:0}.muted{color:#7a8497;font-size:12px}.price{font-weight:800}.plus{color:#16834b}.minus{color:#d13d3d}.empty{text-align:center;padding:30px;color:#8993a5}.fab{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:min(488px,calc(100% - 32px));background:#0f172a;color:#fff;border:0;border-radius:18px;padding:15px;font-size:15px;font-weight:800;box-shadow:0 10px 30px #0f172a40;z-index:8}.nav{display:flex;position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:auto;background:#fff;border-top:1px solid #e8ebf0;z-index:7}.nav button{flex:1;border:0;background:none;padding:10px 3px 9px;color:#7d8798;font-size:11px}.nav button.active{color:#0f172a;font-weight:800}.nav i{display:block;font-style:normal;font-size:20px;margin-bottom:2px}.page{display:none}.page.active{display:block}.modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;z-index:20}.modal.show{display:flex}.sheet{background:#fff;width:100%;max-width:520px;margin:auto;border-radius:24px 24px 0 0;padding:20px 16px 28px;max-height:88vh;overflow:auto}.sheet h3{margin:0 0 15px}.input{width:100%;padding:13px;border:1px solid #dce2eb;border-radius:12px;margin:5px 0 11px;font:inherit;background:#fff}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:flex;gap:9px}.actions>*{flex:1}.danger{color:#d13d3d}.search{margin-bottom:10px}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 15px;border-radius:12px;z-index:30;display:none;font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand"><div><h1>آبان</h1><small>حسابداری و انبارداری</small></div><div>📊</div></div>
+ <div class="date" id="date"></div>
+ <div class="cards">
+  <div class="card">فروش امروز<b id="todaySales">۰ تومان</b></div>
+  <div class="card">سود امروز<b id="todayProfit">۰ تومان</b></div>
+ </div>
+</header>
+
+<main class="content">
+<section id="home" class="page active">
+ <div class="section"><h2>دسترسی سریع</h2></div>
+ <div class="grid">
+  <div class="tile" onclick="openModal('sale')"><div class="ico">🛒</div><b>ثبت فروش</b><span>فروش جدید و کسر موجودی</span></div>
+  <div class="tile" onclick="openModal('product')"><div class="ico">📦</div><b>افزودن کالا</b><span>نام، قیمت و موجودی</span></div>
+  <div class="tile" onclick="switchPage('products')"><div class="ico">🏷️</div><b>موجودی کالا</b><span id="productCount">۰ کالا</span></div>
+  <div class="tile" onclick="switchPage('reports')"><div class="ico">📈</div><b>گزارش‌ها</b><span>فروش و سود</span></div>
+ </div>
+ <div class="section" style="margin-top:22px"><h2>آخرین تراکنش‌ها</h2><button class="btn light" onclick="switchPage('sales')">همه</button></div>
+ <div class="list" id="recent"></div>
+</section>
+
+<section id="products" class="page">
+ <div class="section"><h2>موجودی کالا</h2><button class="btn" onclick="openModal('product')">+ کالا</button></div>
+ <input class="input search" id="search" placeholder="جستجوی کالا..." oninput="renderProducts()">
+ <div class="list" id="productsList"></div>
+</section>
+
+<section id="sales" class="page">
+ <div class="section"><h2>فروش‌ها</h2><button class="btn" onclick="openModal('sale')">+ فروش</button></div>
+ <div class="list" id="salesList"></div>
+</section>
+
+<section id="reports" class="page">
+ <div class="section"><h2>گزارش‌ها</h2></div>
+ <div class="grid">
+  <div class="tile"><span>کل فروش</span><b id="allSales">۰</b></div>
+  <div class="tile"><span>کل سود</span><b id="allProfit">۰</b></div>
+  <div class="tile"><span>ارزش موجودی</span><b id="stockValue">۰</b></div>
+  <div class="tile"><span>تعداد کالا</span><b id="stockCount">۰</b></div>
+ </div>
+ <div class="section" style="margin-top:22px"><h2>هشدار موجودی</h2></div>
+ <div class="list" id="lowStock"></div>
+</section>
+</main>
+
+<nav class="nav">
+ <button class="active" data-page="home" onclick="switchPage('home')"><i>🏠</i>خانه</button>
+ <button data-page="products" onclick="switchPage('products')"><i>📦</i>کالاها</button>
+ <button data-page="sales" onclick="switchPage('sales')"><i>🧾</i>فروش‌ها</button>
+ <button data-page="reports" onclick="switchPage('reports')"><i>📊</i>گزارش</button>
+</nav>
+<button class="fab" onclick="openModal('sale')">＋ ثبت فروش جدید</button>
+
+<div class="modal" id="modal">
+ <div class="sheet" id="sheet"></div>
+</div>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const KEY='aban_accounting_v2';
+let db=JSON.parse(localStorage.getItem(KEY)||'{"products":[],"sales":[]}');
+const fa=n=>Number(n||0).toLocaleString('fa-IR');
+const toman=n=>fa(n)+' تومان';
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function today(){return new Date().toISOString().slice(0,10)}
+function nowFa(){return new Date().toLocaleString('fa-IR',{dateStyle:'short',timeStyle:'short'})}
+document.getElementById('date').textContent=new Date().toLocaleDateString('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+function switchPage(p){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById(p).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));
+ renderAll();
+}
+function openModal(type,id){
+ const m=document.getElementById('modal'),s=document.getElementById('sheet'); m.classList.add('show');
+ if(type==='product'){
+  const p=db.products.find(x=>x.id===id)||{};
+  s.innerHTML=`<h3>${id?'ویرایش کالا':'افزودن کالا'}</h3>
+  <input class="input" id="pname" placeholder="نام کالا" value="${p.name||''}">
+  <div class="two"><div><label class="muted">قیمت خرید</label><input class="input" id="buy" type="number" value="${p.buy||''}"></div>
+  <div><label class="muted">قیمت فروش</label><input class="input" id="sell" type="number" value="${p.sell||''}"></div></div>
+  <div class="two"><div><label class="muted">موجودی</label><input class="input" id="qty" type="number" value="${p.qty??''}"></div>
+  <div><label class="muted">حداقل موجودی</label><input class="input" id="min" type="number" value="${p.min??2}"></div></div>
+  <div class="actions"><button class="btn light" onclick="closeModal()">انصراف</button><button class="btn" onclick="saveProduct('${id||''}')">ذخیره</button></div>`;
+ }else{
+  const opts=db.products.map(p=>`<option value="${p.id}">${p.name} — موجودی ${fa(p.qty)}</option>`).join('');
+  s.innerHTML=`<h3>ثبت فروش</h3>
+  <label class="muted">کالا</label><select class="input" id="sp">${opts||'<option>ابتدا کالا اضافه کنید</option>'}</select>
+  <div class="two"><div><label class="muted">تعداد</label><input class="input" id="sq" type="number" min="1" value="1"></div>
+  <div><label class="muted">تخفیف</label><input class="input" id="disc" type="number" value="0"></div></div>
+  <label class="muted">روش پرداخت</label><select class="input" id="pay"><option>کارت</option><option>نقدی</option><option>نسیه</option></select>
+  <div class="actions"><button class="btn light" onclick="closeModal()">انصراف</button><button class="btn" onclick="saveSale()">ثبت فروش</button></div>`;
+ }
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function saveProduct(id){
+ const name=document.getElementById('pname').value.trim(),buy=+document.getElementById('buy').value,sell=+document.getElementById('sell').value,qty=+document.getElementById('qty').value,min=+document.getElementById('min').value;
+ if(!name||sell<0||qty<0){toast('اطلاعات کالا را کامل کن');return}
+ if(id){let p=db.products.find(x=>x.id===id);Object.assign(p,{name,buy,sell,qty,min})}else db.products.push({id:Date.now().toString(),name,buy,sell,qty,min});
+ closeModal();save();toast('کالا ذخیره شد')
+}
+function saveSale(){
+ const p=db.products.find(x=>x.id===document.getElementById('sp').value),q=+document.getElementById('sq').value,d=+document.getElementById('disc').value,pay=document.getElementById('pay').value;
+ if(!p||q<1||q>p.qty){toast('موجودی کافی نیست');return}
+ const total=p.sell*q-d,profit=(p.sell-p.buy)*q-d;
+ p.qty-=q;db.sales.unshift({id:Date.now().toString(),product:p.name,q,total,profit,pay,date:today(),when:nowFa()});
+ closeModal();save();toast('فروش با موفقیت ثبت شد')
+}
+function delProduct(id){if(confirm('این کالا حذف شود؟')){db.products=db.products.filter(p=>p.id!==id);save();}}
+function renderProducts(){
+ const q=(document.getElementById('search')?.value||'').trim();let arr=db.products.filter(p=>p.name.includes(q));
+ document.getElementById('productsList').innerHTML=arr.length?arr.map(p=>`<div class="row"><div><b>${p.name}</b><div class="muted">خرید ${toman(p.buy)} · فروش ${toman(p.sell)}</div></div><div style="text-align:left"><b class="${p.qty<=p.min?'minus':''}">${fa(p.qty)} عدد</b><div><button class="btn light" onclick="openModal('product','${p.id}')">ویرایش</button></div></div></div>`).join(''):`<div class="empty">هنوز کالایی ثبت نشده</div>`;
+}
+function renderSales(){
+ document.getElementById('salesList').innerHTML=db.sales.length?db.sales.map(s=>`<div class="row"><div><b>${s.product} × ${fa(s.q)}</b><div class="muted">${s.when} · ${s.pay}</div></div><div class="price plus">${toman(s.total)}</div></div>`).join(''):`<div class="empty">هنوز فروشی ثبت نشده</div>`;
+}
+function renderAll(){
+ const t=db.sales.filter(s=>s.date===today()).reduce((a,s)=>a+s.total,0),pr=db.sales.filter(s=>s.date===today()).reduce((a,s)=>a+s.profit,0);
+ document.getElementById('todaySales').textContent=toman(t);document.getElementById('todayProfit').textContent=toman(pr);
+ document.getElementById('productCount').textContent=fa(db.products.length)+' کالا';
+ document.getElementById('recent').innerHTML=db.sales.slice(0,5).map(s=>`<div class="row"><div><b>${s.product} × ${fa(s.q)}</b><div class="muted">${s.when}</div></div><div class="price">${toman(s.total)}</div></div>`).join('')||'<div class="empty">هنوز تراکنشی ثبت نشده</div>';
+ renderProducts();renderSales();
+ const total=db.sales.reduce((a,s)=>a+s.total,0),profit=db.sales.reduce((a,s)=>a+s.profit,0),stock=db.products.reduce((a,p)=>a+p.sell*p.qty,0);
+ document.getElementById('allSales').textContent=toman(total);document.getElementById('allProfit').textContent=toman(profit);document.getElementById('stockValue').textContent=toman(stock);document.getElementById('stockCount').textContent=fa(db.products.length)+' کالا';
+ const low=db.products.filter(p=>p.qty<=p.min);document.getElementById('lowStock').innerHTML=low.length?low.map(p=>`<div class="row"><b>${p.name}</b><span class="minus">${fa(p.qty)} عدد</span></div>`).join(''):'<div class="empty">موجودی کم نداریم ✅</div>';
+}
+function toast(x){const t=document.getElementById('toast');t.textContent=x;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+renderAll();
+</script>
+</body></html>
