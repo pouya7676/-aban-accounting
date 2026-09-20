@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>حسابداری، انبارداری و مدیریت فروش</title>
+  <title>محصولات فرهنگی آبان - حسابداری و انبارداری</title>
   
   <!-- کتابخانه‌ها -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -25,7 +25,7 @@
   </script>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
@@ -35,7 +35,14 @@
       user-select: none;
     }
     .pb-safe {
-      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 88px);
+      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 84px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
@@ -82,7 +89,7 @@
     <!-- ۱. تب داشبورد -->
     <section id="tab-dashboard" class="space-y-4">
       
-      <!-- ویجت اختصاصی: فروش امروز (دخل امروز) -->
+      <!-- ویجت اختصاصی: فروش و دخل امروز -->
       <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-3xl p-4 shadow-lg shadow-emerald-600/20 space-y-2">
         <div class="flex items-center justify-between border-b border-white/20 pb-2">
           <div class="flex items-center gap-2">
@@ -92,10 +99,14 @@
               <p class="text-[10px] text-emerald-100" id="dash-today-date">امروز</p>
             </div>
           </div>
-          <button onclick="openDailyClosingModal()" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1">
-            <span>گزارش کامل روز</span>
-            <span>←</span>
-          </button>
+          <div class="flex items-center gap-1.5">
+            <button onclick="switchTab('daily-archive')" class="px-2.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-[11px] font-bold transition-all flex items-center gap-1">
+              <span>📅 دفتر دخل</span>
+            </button>
+            <button onclick="openDailyClosingModal()" class="px-2.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl text-[11px] font-black transition-all flex items-center gap-1 shadow-xs">
+              <span>🔒 بستن دخل</span>
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-3 gap-2 text-center pt-1">
@@ -194,13 +205,13 @@
 
       <!-- دکمه‌های اقدام سریع -->
       <div class="grid grid-cols-2 gap-3 pt-1">
-        <button onclick="openDailyClosingModal()" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-lg shadow-teal-600/25 active:scale-95 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-          <span>گزارش بستن دخل امروز</span>
+        <button onclick="switchTab('daily-archive')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-lg shadow-teal-600/25 active:scale-95 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>دفتر دخل و بستن روزانه</span>
         </button>
-        <button onclick="switchTab('sales'); openAddSaleModal();" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          <span>ثبت فروش تکی</span>
+        <button onclick="switchTab('invoice')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          <span>صدور فاکتور مشتری</span>
         </button>
       </div>
 
@@ -217,11 +228,12 @@
       </div>
     </section>
 
-    <!-- ۲. تب انبار کالاها (با جستجوی زنده) -->
-    <section id="tab-inventory" class="hidden space-y-4">
+    <!-- ۲. تب انبار کالاها (با دسته‌بندی و جستجو) -->
+    <section id="tab-inventory" class="hidden space-y-3">
+      <!-- نوار جستجو و دکمه کالای جدید -->
       <div class="flex gap-2">
         <div class="relative flex-1">
-          <input type="text" id="inv-search" oninput="renderInventory()" placeholder="جستجوی سریع نام یا مشخصات کالا..." class="w-full pl-3 pr-9 py-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-hidden">
+          <input type="text" id="inv-search" oninput="renderInventory()" placeholder="جستجوی سریع نام کالا..." class="w-full pl-3 pr-9 py-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-hidden">
           <svg class="w-4 h-4 absolute right-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
         <button onclick="openAddProductModal()" class="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1 shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
@@ -230,10 +242,38 @@
         </button>
       </div>
 
-      <div id="inventory-list" class="space-y-3"></div>
+      <!-- تب‌های دسته‌بندی کالاها (نوار افقی شیک و قابل اسکرول) -->
+      <div id="inventory-category-pills" class="flex gap-1.5 overflow-x-auto no-scrollbar py-1">
+        <!-- با جاوااسکریپت پر می‌شود -->
+      </div>
+
+      <div id="inventory-list" class="space-y-3 pt-1"></div>
     </section>
 
-    <!-- ۳. تب دفتر حساب و بدهی/طلبکاری -->
+    <!-- ۳. تب اختصاصی: دفتر دخل روزانه و تفکیک هر روز (حل کامل باگ روز) -->
+    <section id="tab-daily-archive" class="hidden space-y-4">
+      <div class="bg-gradient-to-r from-teal-700 to-emerald-800 text-white rounded-3xl p-4 shadow-md space-y-2">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="font-black text-sm">📅 دفتر دخل و بستن حساب روزانه</h2>
+            <p class="text-[11px] text-teal-200">تفکیک فروش هر روز، جمع دخل و وضعیت بسته شدن روزها</p>
+          </div>
+          <button onclick="openDailyClosingModal()" class="px-3 py-1.5 bg-white text-teal-900 rounded-xl text-xs font-black shadow-md active:scale-95">
+            بستن دخل امروز
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-[11px] px-2 text-slate-500">
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> امروز (در حال فروش)</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> روزهای قبل (حساب بسته شده 🔒)</span>
+      </div>
+
+      <!-- لیست کارت‌های روزها (۲۹ شهریور، ۳۰ شهریور و ...) -->
+      <div id="daily-archive-list" class="space-y-3"></div>
+    </section>
+
+    <!-- ۴. تب دفتر حساب و بدهی/طلبکاری -->
     <section id="tab-debts" class="hidden space-y-4">
       <div class="grid grid-cols-3 gap-2">
         <div class="bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800/60 p-3 rounded-2xl shadow-xs text-center">
@@ -276,7 +316,7 @@
       <div id="debts-list" class="space-y-3"></div>
     </section>
 
-    <!-- ۴. تب صدور فاکتور مشتری -->
+    <!-- ۵. تب صدور فاکتور مشتری -->
     <section id="tab-invoice" class="hidden space-y-4">
       <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
@@ -298,7 +338,6 @@
           </div>
         </div>
 
-        <!-- افزودن اقلام به فاکتور با نوار جستجو -->
         <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/80 space-y-2.5">
           <div class="flex justify-between items-center">
             <span class="block text-xs font-bold text-indigo-600 dark:text-indigo-400">افزودن ردیف کالا به فاکتور:</span>
@@ -362,16 +401,16 @@
       </div>
     </section>
 
-    <!-- ۵. تب فروش روزانه -->
+    <!-- ۶. تب تراکنش‌های فروش و خرید -->
     <section id="tab-sales" class="hidden space-y-4">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="font-bold text-sm">فاکتورهای فروش ثبت‌شده</h2>
-          <p class="text-[11px] text-slate-400">ویرایش، حذف و گزارش دخل</p>
+          <h2 class="font-bold text-sm">لیست کل فاکتورهای فروش</h2>
+          <p class="text-[11px] text-slate-400">ویرایش، حذف و گزارش جامع</p>
         </div>
         <div class="flex gap-1.5">
-          <button onclick="openDailyClosingModal()" class="px-3 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1 shadow-md shadow-teal-600/20 active:scale-95 transition-all">
-            <span>📋 دخل امروز</span>
+          <button onclick="switchTab('daily-archive')" class="px-3 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1 shadow-md shadow-teal-600/20 active:scale-95 transition-all">
+            <span>📅 دفتر دخل</span>
           </button>
           <button onclick="openAddSaleModal()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1 shadow-md shadow-emerald-600/20 active:scale-95 transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -380,7 +419,6 @@
         </div>
       </div>
 
-      <!-- جستجوی لیست فروش‌ها -->
       <div class="relative">
         <input type="text" id="sales-search" oninput="renderSales()" placeholder="جستجو در نام کالا یا مشتری..." class="w-full pl-3 pr-9 py-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
         <svg class="w-4 h-4 absolute right-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -389,7 +427,7 @@
       <div id="sales-list" class="space-y-3"></div>
     </section>
 
-    <!-- ۶. تب خرید روزانه -->
+    <!-- ۷. تب خرید روزانه -->
     <section id="tab-purchases" class="hidden space-y-4">
       <div class="flex justify-between items-center">
         <div>
@@ -405,7 +443,7 @@
       <div id="purchases-list" class="space-y-3"></div>
     </section>
 
-    <!-- ۷. تب تنظیمات و پشتیبان‌گیری -->
+    <!-- ۸. تب تنظیمات و پشتیبان‌گیری -->
     <section id="tab-settings" class="hidden space-y-4">
       <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
         <h2 class="font-bold text-sm">مشخصات فروشگاه (جهت سربرگ فاکتور)</h2>
@@ -426,15 +464,13 @@
         </div>
       </div>
 
-      <!-- کارت پشتیبان‌گیری بدون باز شدن صفحه سیاه در آیفون -->
       <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
         <h2 class="font-bold text-sm">پشتیبان‌گیری و انتقال اطلاعات (ویژه آیفون و اندروید)</h2>
         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-          دکمه «دانلود مستقیم بکاپ» برای آیفون منوی ذخیره در Files را باز می‌کند و نیازی به نگرانی بابت صفحه سیاه نیست. همچنین می‌توانید از دکمه کپی متن استفاده کنید.
+          دکمه «دانلود مستقیم بکاپ» برای آیفون منوی ذخیره در Files را باز می‌کند. همچنین می‌توانید از دکمه کپی متن استفاده کنید.
         </p>
         
         <div class="grid grid-cols-2 gap-2 text-xs font-bold">
-          <!-- دانلود مستقیم در آیفون -->
           <button onclick="exportJSONForIPhone()" class="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-1 shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             <span>دانلود بکاپ (Save to Files)</span>
@@ -468,50 +504,56 @@
 
   </main>
 
-  <!-- ================== منوی ناوبری پایین صفحه ================== -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 px-1 py-2 shadow-lg">
+  <!-- ================== منوی ناوبری پایین صفحه (۷ دکمه کامل با طراحی ارگونومیک) ================== -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 px-1 py-1.5 shadow-lg">
     <div class="max-w-xl mx-auto flex items-center justify-around">
 
+      <!-- ۱. داشبورد -->
       <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-indigo-600 dark:text-indigo-400 bg-indigo-50/70 dark:bg-indigo-950/40 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
         </svg>
-        <span class="text-[10px] font-extrabold leading-none">داشبورد</span>
+        <span class="text-[9px] font-extrabold leading-none">داشبورد</span>
       </button>
 
+      <!-- ۲. انبار -->
       <button onclick="switchTab('inventory')" id="nav-inventory" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
         </svg>
-        <span class="text-[10px] font-extrabold leading-none">انبار</span>
+        <span class="text-[9px] font-extrabold leading-none">انبار</span>
       </button>
 
-      <button onclick="switchTab('debts')" id="nav-debts" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+      <!-- ۳. دفتر دخل (Daily Archive) -->
+      <button onclick="switchTab('daily-archive')" id="nav-daily-archive" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
-        <span class="text-[10px] font-extrabold leading-none">دفتر حساب</span>
+        <span class="text-[9px] font-extrabold leading-none">دفتر دخل</span>
       </button>
 
+      <!-- ۴. فاکتور مشتری -->
       <button onclick="switchTab('invoice')" id="nav-invoice" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
         </svg>
-        <span class="text-[10px] font-extrabold leading-none">فاکتور</span>
+        <span class="text-[9px] font-extrabold leading-none">فاکتور</span>
       </button>
 
+      <!-- ۵. حساب‌ها (بدهی/طلب) -->
+      <button onclick="switchTab('debts')" id="nav-debts" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <span class="text-[9px] font-extrabold leading-none">حساب‌ها</span>
+      </button>
+
+      <!-- ۶. تراکنش‌ها (فروش/خرید) -->
       <button onclick="switchTab('sales')" id="nav-sales" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
         </svg>
-        <span class="text-[10px] font-extrabold leading-none">فروش</span>
-      </button>
-
-      <button onclick="switchTab('purchases')" id="nav-purchases" class="flex-1 flex flex-col items-center justify-center py-1 px-0.5 rounded-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
-        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
-        <span class="text-[10px] font-extrabold leading-none">خرید</span>
+        <span class="text-[9px] font-extrabold leading-none">تراکنش‌ها</span>
       </button>
 
     </div>
@@ -540,18 +582,21 @@
       <!-- اقلام تیتروار فروخته‌شده امروز -->
       <div class="flex-1 overflow-y-auto space-y-2 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/40 text-xs">
         <span class="font-bold text-slate-600 dark:text-slate-300 block mb-1">ریز اقلام فروخته‌شده امروز به تفکیک:</span>
-        <div id="closing-items-list" class="divide-y divide-slate-200 dark:divide-slate-700/60 space-y-1.5">
-          <!-- با جاوااسکریپت پر می‌شود -->
-        </div>
+        <div id="closing-items-list" class="divide-y divide-slate-200 dark:divide-slate-700/60 space-y-1.5"></div>
       </div>
 
-      <!-- دکمه‌های کپی گزارش برای تلگرام -->
-      <div class="grid grid-cols-2 gap-2 pt-1">
-        <button onclick="copyDailyReportText()" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 shadow-md shadow-emerald-600/20 active:scale-95">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-          <span>کپی متن دخل برای تلگرام</span>
+      <!-- دکمه‌های کپی گزارش و نهایی کردن بستن روز -->
+      <div class="space-y-2 pt-1">
+        <button onclick="markTodayAsClosed()" class="w-full py-2.5 px-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-black shadow-md shadow-teal-600/20 active:scale-95 flex items-center justify-center gap-1">
+          <span>🔒 ثبت نهایی و بستن حساب امروز</span>
         </button>
-        <button onclick="closeModal('modal-daily-closing')" class="py-2.5 px-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold">بستن</button>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="copyDailyReportText()" class="py-2 px-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold flex items-center justify-center gap-1 active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span>کپی متن دخل</span>
+          </button>
+          <button onclick="closeModal('modal-daily-closing')" class="py-2 px-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-[11px] font-bold">بستن پنجره</button>
+        </div>
       </div>
     </div>
   </div>
@@ -563,7 +608,6 @@
       <form onsubmit="handleSingleSaleSubmit(event)" class="space-y-2.5 text-xs">
         <input type="hidden" id="s-id">
         
-        <!-- نوار جستجوی کالا داخل فرم فروش -->
         <div>
           <label class="block text-slate-500 font-bold mb-1">جستجو و انتخاب کالا:</label>
           <input type="text" id="s-product-search" oninput="filterSaleSelectOptions()" placeholder="🔍 نام کالا را تایپ کنید (مثلاً: فلش، انکر...)" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-1.5 font-medium">
@@ -594,8 +638,7 @@
     </div>
   </div>
 
-  <!-- ================== سایر مودال‌ها ================== -->
-  <!-- مودال افزودن / ویرایش کالا -->
+  <!-- ================== مودال افزودن / ویرایش کالا با انتخاب دسته‌بندی ================== -->
   <div id="modal-product" class="fixed inset-0 z-50 bg-black/60 p-4 hidden flex items-center justify-center">
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 w-full max-w-sm space-y-3 shadow-2xl border border-slate-200 dark:border-slate-800">
       <h3 id="modal-product-title" class="font-bold text-sm">کالای جدید</h3>
@@ -603,8 +646,22 @@
         <input type="hidden" id="p-id">
         <div>
           <label class="block text-slate-500 font-bold mb-1">نام کالا:</label>
-          <input type="text" id="p-name" required placeholder="مثال: فلش، کابل..." class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <input type="text" id="p-name" required placeholder="مثال: فلش، کابل..." class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-semibold">
         </div>
+
+        <div>
+          <label class="block text-slate-500 font-bold mb-1">دسته‌بندی کالا:</label>
+          <select id="p-category" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-medium">
+            <option value="کارت حافظه (فلش)">کارت حافظه (فلش)</option>
+            <option value="آداپتور و شارژر">آداپتور و شارژر</option>
+            <option value="کابل شارژ">کابل شارژ</option>
+            <option value="هدفون و ایرپاد">هدفون و ایرپاد</option>
+            <option value="پاوربانک">پاوربانک</option>
+            <option value="اسپیکر">اسپیکر</option>
+            <option value="سایر لوازم">سایر لوازم</option>
+          </select>
+        </div>
+
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-slate-500 font-bold mb-1">قیمت خرید (تومان):</label>
@@ -617,7 +674,7 @@
         </div>
         <div>
           <label class="block text-slate-500 font-bold mb-1">موجودی انبار:</label>
-          <input type="number" id="p-stock" required placeholder="0" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <input type="number" id="p-stock" required placeholder="0" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold">
         </div>
         <div class="flex gap-2 pt-2">
           <button type="button" onclick="closeModal('modal-product')" class="w-1/3 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl font-bold">انصراف</button>
@@ -819,6 +876,8 @@
     }
 
     const STORAGE_KEYS = [
+      'SHOP_ACCOUNTING_DATA_V10',
+      'SHOP_ACCOUNTING_DATA_V9',
       'SHOP_ACCOUNTING_DATA_V8',
       'SHOP_ACCOUNTING_DATA_V7',
       'SHOP_ACCOUNTING_DATA_V6',
@@ -827,45 +886,49 @@
       'APP_ACCOUNTING_DATA_V1',
       'SHOP_ACCOUNTING_APP_V2'
     ];
-    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V8';
+    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V10';
 
-    // اطلاعات پیش‌فرض دقیق شما
+    // اطلاعات کالاها با دسته‌بندی دقیق و مشخص
+    const DEFAULT_PRODUCTS = [
+      { id: '1', name: 'فلش ۸ گیگ', category: 'کارت حافظه (فلش)', buy: 650000, sell: 1000000, stock: 2 },
+      { id: '2', name: 'فلش ۱۶ گیگ Psg', category: 'کارت حافظه (فلش)', buy: 980000, sell: 1350000, stock: 7 },
+      { id: '3', name: 'فلش ۳۲ گیگ T-Gate', category: 'کارت حافظه (فلش)', buy: 1100000, sell: 1750000, stock: 8 },
+      { id: '4', name: 'فلش ۶۴ گیگ Heksemi', category: 'کارت حافظه (فلش)', buy: 1650000, sell: 2200000, stock: 5 },
+      { id: '5', name: 'فلش ۶۴ گیگ usb3', category: 'کارت حافظه (فلش)', buy: 2100000, sell: 3000000, stock: 4 },
+      { id: '6', name: 'فلش ۳۲ گیگ usb3', category: 'کارت حافظه (فلش)', buy: 1850000, sell: 2580000, stock: 1 },
+      { id: '7', name: 'اداپتور Anker 20w', category: 'آداپتور و شارژر', buy: 1800000, sell: 2800000, stock: 5 },
+      { id: '8', name: 'اداپتور Anker 30 وات', category: 'آداپتور و شارژر', buy: 0, sell: 0, stock: 5 },
+      { id: '9', name: 'اداپتور Anker 45 وات', category: 'آداپتور و شارژر', buy: 0, sell: 0, stock: 5 },
+      { id: '10', name: 'پاوربانک Anker 20 هزار میلی آمپر', category: 'پاوربانک', buy: 0, sell: 0, stock: 5 },
+      { id: '11', name: 'ایرپاد Anker R50i', category: 'هدفون و ایرپاد', buy: 0, sell: 0, stock: 5 },
+      { id: '12', name: 'ایرپاد Anker R50 Nc', category: 'هدفون و ایرپاد', buy: 0, sell: 0, stock: 5 },
+      { id: '13', name: 'هدست گردنی Anker Life u2i', category: 'هدفون و ایرپاد', buy: 0, sell: 0, stock: 5 },
+      { id: '14', name: 'کابل شارژ Anker', category: 'کابل شارژ', buy: 0, sell: 0, stock: 5 },
+      { id: '15', name: 'اسپیکر Anker', category: 'اسپیکر', buy: 0, sell: 0, stock: 5 },
+      { id: '16', name: 'اداپتور Mcdodo 20w', category: 'آداپتور و شارژر', buy: 0, sell: 0, stock: 5 },
+      { id: '17', name: 'اداپتور Mcdodo 33w', category: 'آداپتور و شارژر', buy: 0, sell: 0, stock: 5 },
+      { id: '18', name: 'کابل Mcdodo T_c', category: 'کابل شارژ', buy: 0, sell: 0, stock: 5 },
+      { id: '19', name: 'کابل Mcdodo آیفون', category: 'کابل شارژ', buy: 0, sell: 0, stock: 5 },
+      { id: '20', name: 'کابل Mcdodo T_l', category: 'کابل شارژ', buy: 0, sell: 0, stock: 5 }
+    ];
+
     let db = {
       settings: {
         name: 'محصولات فرهنگی آبان',
         phone: '09152157916',
         address: 'مشهد، بلوار حجاب، بازار ابریشم، واحد ۷۴۴'
       },
-      products: [
-        { id: '1', name: 'فلش ۸ گیگ', buy: 650000, sell: 1000000, stock: 2 },
-        { id: '2', name: 'فلش ۱۶ گیگ Psg', buy: 980000, sell: 1350000, stock: 7 },
-        { id: '3', name: 'فلش ۳۲ گیگ T-Gate', buy: 1100000, sell: 1750000, stock: 8 },
-        { id: '4', name: 'فلش ۶۴ گیگ Heksemi', buy: 1650000, sell: 2200000, stock: 5 },
-        { id: '5', name: 'فلش ۶۴ گیگ usb3', buy: 2100000, sell: 3000000, stock: 4 },
-        { id: '6', name: 'فلش ۳۲ گیگ usb3', buy: 1850000, sell: 2580000, stock: 1 },
-        { id: '7', name: 'اداپتور Anker 20w', buy: 1800000, sell: 2800000, stock: 5 },
-        { id: '8', name: 'اداپتور Anker 30 وات', buy: 0, sell: 0, stock: 5 },
-        { id: '9', name: 'اداپتور Anker 45 وات', buy: 0, sell: 0, stock: 5 },
-        { id: '10', name: 'پاوربانک Anker 20 هزار میلی آمپر', buy: 0, sell: 0, stock: 5 },
-        { id: '11', name: 'ایرپاد Anker R50i', buy: 0, sell: 0, stock: 5 },
-        { id: '12', name: 'ایرپاد Anker R50 Nc', buy: 0, sell: 0, stock: 5 },
-        { id: '13', name: 'هدست گردنی Anker Life u2i', buy: 0, sell: 0, stock: 5 },
-        { id: '14', name: 'کابل شارژ Anker', buy: 0, sell: 0, stock: 5 },
-        { id: '15', name: 'اسپیکر Anker', buy: 0, sell: 0, stock: 5 },
-        { id: '16', name: 'اداپتور Mcdodo 20w', buy: 0, sell: 0, stock: 5 },
-        { id: '17', name: 'اداپتور Mcdodo 33w', buy: 0, sell: 0, stock: 5 },
-        { id: '18', name: 'کابل Mcdodo T_c', buy: 0, sell: 0, stock: 5 },
-        { id: '19', name: 'کابل Mcdodo آیفون', buy: 0, sell: 0, stock: 5 },
-        { id: '20', name: 'کابل Mcdodo T_l', buy: 0, sell: 0, stock: 5 }
-      ],
+      products: DEFAULT_PRODUCTS,
       debts: [],
       sales: [],
       purchases: [],
+      closedDays: [], // روزهای بسته شده به صورت قطعی
       invoiceCount: 101
     };
 
     let currentInvoiceItems = [];
     let currentDebtFilter = 'all';
+    let currentInventoryCategory = 'all';
 
     function loadDB() {
       for (const k of STORAGE_KEYS) {
@@ -876,6 +939,15 @@
             if (parsed.products && parsed.products.length > 0) {
               db = parsed;
               if (!db.debts) db.debts = [];
+              if (!db.closedDays) db.closedDays = [];
+
+              // اطمینان از تخصیص دسته‌بندی به کالاهای ذخیره‌شده قبلی کاربر
+              db.products.forEach(p => {
+                if (!p.category) {
+                  const def = DEFAULT_PRODUCTS.find(x => x.name.trim() === p.name.trim());
+                  p.category = def ? def.category : 'سایر لوازم';
+                }
+              });
               break;
             }
           }
@@ -893,8 +965,39 @@
       return new Intl.NumberFormat('fa-IR').format(Math.round(n || 0));
     }
 
-    function getTodayDateStr() {
-      return new Date().toISOString().split('T')[0];
+    // تاریخ دقیق روز با تایم‌زون رسمی تهران به فرمت استاندارد YYYY-MM-DD
+    function getTehranTodayIso() {
+      try {
+        return new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Asia/Tehran',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).format(new Date());
+      } catch (e) {
+        return new Date().toISOString().split('T')[0];
+      }
+    }
+
+    // تبدیل تاریخ میلادی به تاریخ شمسی با روز هفته
+    function formatIsoToJalali(isoStr) {
+      if (!isoStr) return 'نامشخص';
+      try {
+        const parts = isoStr.split('-').map(Number);
+        if (parts.length === 3) {
+          const dt = new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0);
+          return new Intl.DateTimeFormat('fa-IR', {
+            timeZone: 'Asia/Tehran',
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          }).format(dt);
+        }
+        return isoStr;
+      } catch (e) {
+        return isoStr;
+      }
     }
 
     function toggleDarkMode() {
@@ -904,7 +1007,7 @@
 
     function switchTab(t) {
       haptic();
-      const tabs = ['dashboard', 'inventory', 'debts', 'invoice', 'sales', 'purchases', 'settings'];
+      const tabs = ['dashboard', 'inventory', 'daily-archive', 'debts', 'invoice', 'sales', 'purchases', 'settings'];
       tabs.forEach(tab => {
         const el = document.getElementById('tab-' + tab);
         if (el) el.classList.toggle('hidden', tab !== t);
@@ -929,15 +1032,15 @@
       const todayJalali = new Intl.DateTimeFormat('fa-IR', { dateStyle: 'long' }).format(new Date());
       document.getElementById('store-title').innerText = db.settings?.name || 'محصولات فرهنگی آبان';
       document.getElementById('header-date').innerText = todayJalali;
-      document.getElementById('dash-today-date').innerText = 'تاریخ: ' + todayJalali;
+      document.getElementById('dash-today-date').innerText = 'تاریخ امروز: ' + todayJalali;
 
       document.getElementById('setting-name').value = db.settings?.name || '';
       document.getElementById('setting-phone').value = db.settings?.phone || '';
       document.getElementById('setting-address').value = db.settings?.address || '';
 
-      // محاسبه فروش امروز
-      const todayIso = getTodayDateStr();
-      const todaySales = db.sales.filter(s => s.date === todayIso);
+      // محاسبه فروش امروز به صورت قطعی و زنده
+      const todayIso = getTehranTodayIso();
+      const todaySales = (db.sales || []).filter(s => s.date === todayIso);
       const todaySalesAmount = todaySales.reduce((acc, s) => acc + Number(s.total || 0), 0);
       const todaySalesProfit = todaySales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
 
@@ -957,7 +1060,7 @@
       document.getElementById('dash-stock-value').innerText = formatNum(stockVal);
 
       // بدهی و طلب
-      const pendingDebts = db.debts.filter(d => d.status !== 'settled');
+      const pendingDebts = (db.debts || []).filter(d => d.status !== 'settled');
       const totalReceivable = pendingDebts.filter(d => d.type === 'receivable').reduce((acc, d) => acc + Number(d.amount || 0), 0);
       const totalPayable = pendingDebts.filter(d => d.type === 'payable').reduce((acc, d) => acc + Number(d.amount || 0), 0);
       const netBalance = totalReceivable - totalPayable;
@@ -986,7 +1089,9 @@
           </div>
         `).join('');
 
+      renderCategoryPills();
       renderInventory();
+      renderDailyArchive();
       renderDebts();
       renderSales();
       renderPurchases();
@@ -994,201 +1099,81 @@
       renderInvoiceTable();
     }
 
-    // ================== گزارش بستن دخل و جمع‌بندی تیتروار انتهای روز ==================
-    function openDailyClosingModal() {
-      const todayIso = getTodayDateStr();
-      const todaySales = db.sales.filter(s => s.date === todayIso);
-      const totalAmount = todaySales.reduce((acc, s) => acc + Number(s.total || 0), 0);
-      const totalProfit = todaySales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
+    // ================== دسته‌بندی‌های انبار (Categories) ==================
+    function renderCategoryPills() {
+      const container = document.getElementById('inventory-category-pills');
+      if (!container) return;
 
-      document.getElementById('closing-total-amount').innerText = formatNum(totalAmount) + ' تومان';
-      document.getElementById('closing-total-profit').innerText = formatNum(totalProfit);
-      document.getElementById('closing-total-count').innerText = formatNum(todaySales.length);
-
-      // گروه‌بندی اقلام فروخته شده به تفکیک
-      const itemMap = {};
-      todaySales.forEach(s => {
-        if (!itemMap[s.productName]) {
-          itemMap[s.productName] = { qty: 0, total: 0 };
-        }
-        itemMap[s.productName].qty += Number(s.qty || 1);
-        itemMap[s.productName].total += Number(s.total || 0);
+      const catCounts = { 'all': db.products.length };
+      db.products.forEach(p => {
+        const c = p.category || 'سایر لوازم';
+        catCounts[c] = (catCounts[c] || 0) + 1;
       });
 
-      const itemsListEl = document.getElementById('closing-items-list');
-      const itemNames = Object.keys(itemMap);
+      const categories = [
+        { id: 'all', title: '🏷️ همه کالاها' },
+        { id: 'کارت حافظه (فلش)', title: '💾 کارت حافظه (فلش)' },
+        { id: 'آداپتور و شارژر', title: '🔌 آداپتور و شارژر' },
+        { id: 'کابل شارژ', title: '⚡ کابل شارژ' },
+        { id: 'هدفون و ایرپاد', title: '🎧 هدفون و ایرپاد' },
+        { id: 'پاوربانک', title: '🔋 پاوربانک' },
+        { id: 'اسپیکر', title: '🔊 اسپیکر' },
+        { id: 'سایر لوازم', title: '📦 سایر لوازم' }
+      ];
 
-      if (itemNames.length === 0) {
-        itemsListEl.innerHTML = '<p class="text-slate-400 text-center py-4">امروز هنوز هیچ فروشی ثبت نشده است.</p>';
-      } else {
-        itemsListEl.innerHTML = itemNames.map((name, i) => `
-          <div class="flex justify-between items-center py-1.5">
-            <div>
-              <b class="text-slate-800 dark:text-slate-200">${i + 1}. ${name}</b>
-              <span class="text-slate-400 block text-[10px]">تعداد: ${formatNum(itemMap[name].qty)} عدد</span>
-            </div>
-            <b class="text-emerald-600 font-bold">${formatNum(itemMap[name].total)} ت</b>
-          </div>
-        `).join('');
-      }
+      container.innerHTML = categories.map(cat => {
+        const count = catCounts[cat.id] || 0;
+        if (cat.id !== 'all' && count === 0) return '';
+        const active = currentInventoryCategory === cat.id;
 
-      document.getElementById('modal-daily-closing').classList.remove('hidden');
+        return `
+          <button onclick="setInventoryCategory('${cat.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            active 
+              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/25 scale-102' 
+              : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50'
+          }">
+            <span>${cat.title}</span>
+            <span class="mr-1 text-[10px] px-1.5 py-0.5 rounded-full ${active ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setInventoryCategory(catId) {
+      currentInventoryCategory = catId;
+      renderCategoryPills();
+      renderInventory();
       haptic();
     }
 
-    function copyDailyReportText() {
-      const todayIso = getTodayDateStr();
-      const todayJalali = new Intl.DateTimeFormat('fa-IR', { dateStyle: 'full' }).format(new Date());
-      const todaySales = db.sales.filter(s => s.date === todayIso);
-      const totalAmount = todaySales.reduce((acc, s) => acc + Number(s.total || 0), 0);
-      const totalProfit = todaySales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
-
-      const itemMap = {};
-      todaySales.forEach(s => {
-        if (!itemMap[s.productName]) itemMap[s.productName] = 0;
-        itemMap[s.productName] += Number(s.qty || 1);
-      });
-
-      let text = `📊 *گزارش بستن دخل روزانه فروشگاه*\n`;
-      text += `🏢 ${db.settings?.name || 'محصولات فرهنگی آبان'}\n`;
-      text += `📅 تاریخ: ${todayJalali}\n`;
-      text += `-------------------------\n`;
-      text += `💵 *کل دخل و فروش امروز:* ${formatNum(totalAmount)} تومان\n`;
-      text += `📈 *سود ناخالص امروز:* ${formatNum(totalProfit)} تومان\n`;
-      text += `🧾 *تعداد فاکتورهای امروز:* ${todaySales.length} عدد\n\n`;
-      text += `📦 *ریز اقلام فروخته‌شده:*\n`;
-
-      const keys = Object.keys(itemMap);
-      if (keys.length === 0) {
-        text += `(موردی فروخته نشده)\n`;
-      } else {
-        keys.forEach((k, idx) => {
-          text += `${idx + 1}. ${k} (${itemMap[k]} عدد)\n`;
-        });
-      }
-      text += `-------------------------\n`;
-      text += `✅ دخل روز با موفقیت بسته شد.`;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          alert('متن گزارش دخل کپی شد! می‌توانید در Saved Messages تلگرام یا چنل خود ارسال کنید.');
-          haptic();
-        });
-      } else {
-        prompt('متن گزارش روز را کپی کنید:', text);
-      }
-    }
-
-    // ================== دانلود قطعی و امن در آیفون بدون صفحه سیاه ==================
-    async function exportJSONForIPhone() {
-      const dataStr = JSON.stringify(db, null, 2);
-      const fileName = 'hesabdari_backup.json';
-
-      // ۱. اگر آیفون باشد و تابع اشتراک فایل در دسترس باشد
-      if (navigator.share) {
-        try {
-          const file = new File([dataStr], fileName, { type: 'application/json' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: 'پشتیبان حسابداری آبان',
-            });
-            haptic();
-            return;
-          }
-        } catch (e) {}
-      }
-
-      // ۲. در غیر این صورت، دانلود به روش فایل مستقیم با انکودینگ صریح UTF-8
-      const blob = new Blob([dataStr], { type: 'application/octet-stream;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 500);
-      haptic();
-    }
-
-    function copyBackupToClipboard() {
-      const dataStr = JSON.stringify(db, null, 2);
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(dataStr).then(() => {
-          alert('کپی شد! متن بکاپ در کلیپ‌بورد ذخیره شد. در تلگرام Paste کنید.');
-          haptic();
-        });
-      } else {
-        prompt('متن بکاپ را کپی کنید:', dataStr);
-      }
-    }
-
-    function openPasteRestoreModal() {
-      document.getElementById('paste-backup-input').value = '';
-      document.getElementById('modal-paste-restore').classList.remove('hidden');
-    }
-
-    function applyPastedBackup() {
-      const raw = document.getElementById('paste-backup-input').value.trim();
-      if (!raw) return alert('لطفاً ابتدا متن را Paste کنید.');
-      try {
-        const data = JSON.parse(raw);
-        if (data.products && Array.isArray(data.products)) {
-          if (confirm('آیا اطلاعات فعلی با این نسخه پشتیبان جایگزین شود؟')) {
-            db = data;
-            if (!db.debts) db.debts = [];
-            saveDB();
-            closeModal('modal-paste-restore');
-            alert('اطلاعات با موفقیت بازگردانی شدند!');
-            haptic();
-          }
-        } else {
-          alert('فرمت متن معتبر نیست.');
-        }
-      } catch (e) {
-        alert('خطا در تحلیل متن پشتیبان.');
-      }
-    }
-
-    // ================== فیلتر و جستجوی کالا داخل فرم ثبت فروش ==================
-    function filterSaleSelectOptions() {
-      const q = (document.getElementById('s-product-search')?.value || '').trim().toLowerCase();
-      const sel = document.getElementById('s-product');
-      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q));
-      
-      sel.innerHTML = filtered.map(p => 
-        `<option value="${p.id}">${p.name} (موجودی: ${p.stock})</option>`
-      ).join('');
-
-      onSingleSaleProductChange();
-    }
-
-    function filterInvoiceSelectOptions() {
-      const q = (document.getElementById('inv-search-filter')?.value || '').trim().toLowerCase();
-      const sel = document.getElementById('inv-item-select');
-      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q));
-      
-      sel.innerHTML = filtered.map(p => 
-        `<option value="${p.id}">${p.name} (موجودی: ${p.stock})</option>`
-      ).join('');
-
-      onInvoiceItemSelect();
-    }
-
-    // ================== انبار کالاها (با جستجو) ==================
+    // ================== لیست انبار کالاها ==================
     function renderInventory() {
       const q = (document.getElementById('inv-search')?.value || '').trim().toLowerCase();
-      const list = db.products.filter(p => p.name.toLowerCase().includes(q));
+      let list = db.products || [];
+
+      if (currentInventoryCategory !== 'all') {
+        list = list.filter(p => (p.category || 'سایر لوازم') === currentInventoryCategory);
+      }
+
+      if (q) {
+        list = list.filter(p => p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)));
+      }
       
-      document.getElementById('inventory-list').innerHTML = list.length === 0
-        ? '<div class="text-center py-8 text-slate-400 text-xs">کالایی با این نام یافت نشد.</div>'
-        : list.map(p => `
+      const listEl = document.getElementById('inventory-list');
+      if (list.length === 0) {
+        listEl.innerHTML = '<div class="text-center py-10 text-slate-400 text-xs">کالایی در این دسته‌بندی یا با این نام یافت نشد.</div>';
+        return;
+      }
+
+      listEl.innerHTML = list.map(p => `
         <div class="bg-white dark:bg-slate-900 p-3.5 rounded-3xl border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs shadow-xs">
           <div>
-            <b class="text-sm block text-slate-900 dark:text-white mb-1">${p.name}</b>
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="px-2 py-0.5 rounded-md text-[9px] font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/50">
+                ${p.category || 'سایر لوازم'}
+              </span>
+              <b class="text-sm text-slate-900 dark:text-white">${p.name}</b>
+            </div>
             <span class="text-slate-400 text-[11px]">خرید: ${formatNum(p.buy)} | فروش: <span class="text-emerald-600 font-bold">${formatNum(p.sell)}</span></span>
           </div>
           <div class="flex items-center gap-2">
@@ -1215,6 +1200,7 @@
     function openAddProductModal() {
       document.getElementById('p-id').value = '';
       document.getElementById('p-name').value = '';
+      document.getElementById('p-category').value = currentInventoryCategory !== 'all' ? currentInventoryCategory : 'کارت حافظه (فلش)';
       document.getElementById('p-buy').value = '';
       document.getElementById('p-sell').value = '';
       document.getElementById('p-stock').value = '';
@@ -1227,10 +1213,11 @@
       if (!p) return;
       document.getElementById('p-id').value = p.id;
       document.getElementById('p-name').value = p.name;
+      document.getElementById('p-category').value = p.category || 'کارت حافظه (فلش)';
       document.getElementById('p-buy').value = p.buy;
       document.getElementById('p-sell').value = p.sell;
       document.getElementById('p-stock').value = p.stock;
-      document.getElementById('modal-product-title').innerText = 'ویرایش کالا';
+      document.getElementById('modal-product-title').innerText = 'ویرایش کالا: ' + p.name;
       document.getElementById('modal-product').classList.remove('hidden');
     }
 
@@ -1238,15 +1225,16 @@
       e.preventDefault();
       const id = document.getElementById('p-id').value;
       const name = document.getElementById('p-name').value.trim();
+      const category = document.getElementById('p-category').value;
       const buy = Number(document.getElementById('p-buy').value);
       const sell = Number(document.getElementById('p-sell').value);
       const stock = Number(document.getElementById('p-stock').value);
 
       if (id) {
         const item = db.products.find(x => x.id === id);
-        if (item) { item.name = name; item.buy = buy; item.sell = sell; item.stock = stock; }
+        if (item) { item.name = name; item.category = category; item.buy = buy; item.sell = sell; item.stock = stock; }
       } else {
-        db.products.push({ id: String(Date.now()), name, buy, sell, stock });
+        db.products.push({ id: String(Date.now()), name, category, buy, sell, stock });
       }
       closeModal('modal-product');
       saveDB();
@@ -1257,6 +1245,326 @@
         db.products = db.products.filter(x => x.id !== id);
         saveDB();
       }
+    }
+
+    // ================== سیستم آرشیو و بستن روزانه دخل (حل مشکل تفکیک روزها) ==================
+    function renderDailyArchive() {
+      const todayIso = getTehranTodayIso();
+      const groups = {};
+
+      (db.sales || []).forEach(s => {
+        const dKey = s.date || todayIso;
+        if (!groups[dKey]) {
+          groups[dKey] = {
+            dateKey: dKey,
+            jalaliDate: formatIsoToJalali(dKey),
+            sales: [],
+            totalAmount: 0,
+            totalProfit: 0,
+            count: 0,
+            isToday: (dKey === todayIso),
+            isClosed: (dKey < todayIso) || (db.closedDays && db.closedDays.includes(dKey))
+          };
+        }
+        groups[dKey].sales.push(s);
+        groups[dKey].totalAmount += Number(s.total || 0);
+        groups[dKey].totalProfit += Number(s.profit || 0);
+        groups[dKey].count += 1;
+      });
+
+      if (!groups[todayIso]) {
+        groups[todayIso] = {
+          dateKey: todayIso,
+          jalaliDate: formatIsoToJalali(todayIso),
+          sales: [],
+          totalAmount: 0,
+          totalProfit: 0,
+          count: 0,
+          isToday: true,
+          isClosed: (db.closedDays && db.closedDays.includes(todayIso)) || false
+        };
+      }
+
+      const sortedDays = Object.values(groups).sort((a, b) => b.dateKey.localeCompare(a.dateKey));
+      const listEl = document.getElementById('daily-archive-list');
+
+      listEl.innerHTML = sortedDays.map(day => {
+        const isToday = day.isToday;
+        const isClosed = day.isClosed;
+
+        const itemMap = {};
+        day.sales.forEach(s => {
+          if (!itemMap[s.productName]) itemMap[s.productName] = { qty: 0, total: 0 };
+          itemMap[s.productName].qty += Number(s.qty || 1);
+          itemMap[s.productName].total += Number(s.total || 0);
+        });
+
+        const itemsKeys = Object.keys(itemMap);
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+              <div>
+                <b class="text-sm text-slate-900 dark:text-white block">${day.jalaliDate}</b>
+                <span class="text-[10px] text-slate-400">${day.dateKey}</span>
+              </div>
+              <span class="px-2.5 py-1 rounded-xl text-[10px] font-black ${
+                isToday 
+                  ? (isClosed ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300') 
+                  : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+              }">
+                ${isToday ? (isClosed ? '🔒 دخل امروز بسته شد' : '🟢 امروز (در حال فروش)') : '🔒 حساب روز بسته شده'}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-2xl text-center">
+              <div>
+                <span class="text-[10px] text-slate-400 block mb-0.5">کل دخل روز</span>
+                <b class="text-xs font-black text-emerald-600 dark:text-emerald-400">${formatNum(day.totalAmount)} ت</b>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block mb-0.5">سود ناخالص</span>
+                <b class="text-xs font-black text-indigo-600 dark:text-indigo-400">${formatNum(day.totalProfit)} ت</b>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block mb-0.5">تعداد فاکتورها</span>
+                <b class="text-xs font-black text-slate-700 dark:text-slate-300">${formatNum(day.count)} فاکتور</b>
+              </div>
+            </div>
+
+            <div>
+              <button onclick="toggleDayDetails('${day.dateKey}')" class="w-full py-1.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] font-bold flex items-center justify-between transition-all">
+                <span>📋 ریز اقلام و فاکتورهای این روز (${day.sales.length} مورد)</span>
+                <span id="arrow-${day.dateKey}">▼</span>
+              </button>
+              
+              <div id="details-${day.dateKey}" class="hidden mt-2 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 text-xs space-y-1.5">
+                ${itemsKeys.length === 0 ? '<p class="text-slate-400 text-center py-2 text-[11px]">موردی در این تاریخ ثبت نشده است.</p>' : itemsKeys.map((name, i) => `
+                  <div class="flex justify-between items-center py-1 border-b border-slate-200/60 dark:border-slate-800/60 last:border-none">
+                    <div>
+                      <b class="text-slate-800 dark:text-slate-200">${i + 1}. ${name}</b>
+                      <span class="text-slate-400 block text-[10px]">تعداد: ${formatNum(itemMap[name].qty)} عدد</span>
+                    </div>
+                    <b class="text-emerald-600 font-bold">${formatNum(itemMap[name].total)} ت</b>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-1">
+              <button onclick="copyDayReportSpecific('${day.dateKey}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold active:scale-95 transition-all flex items-center justify-center gap-1">
+                <span>کپی گزارش این روز برای تلگرام</span>
+              </button>
+              ${isToday && !isClosed ? `
+                <button onclick="markTodayAsClosed()" class="py-2 px-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-[11px] font-black active:scale-95 transition-all">
+                  بستن دخل
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleDayDetails(dateKey) {
+      const el = document.getElementById('details-' + dateKey);
+      const arr = document.getElementById('arrow-' + dateKey);
+      if (el) {
+        el.classList.toggle('hidden');
+        arr.innerText = el.classList.contains('hidden') ? '▼' : '▲';
+      }
+    }
+
+    function markTodayAsClosed() {
+      const todayIso = getTehranTodayIso();
+      if (!db.closedDays) db.closedDays = [];
+      if (!db.closedDays.includes(todayIso)) {
+        db.closedDays.push(todayIso);
+      }
+      saveDB();
+      closeModal('modal-daily-closing');
+      alert('حساب و دخل امروز با موفقیت بسته شد و در بایگانی ثبت گردید! ✓');
+      haptic();
+    }
+
+    function copyDayReportSpecific(dateKey) {
+      const jalaliStr = formatIsoToJalali(dateKey);
+      const sales = (db.sales || []).filter(s => s.date === dateKey);
+      const totalAmount = sales.reduce((acc, s) => acc + Number(s.total || 0), 0);
+      const totalProfit = sales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
+
+      const itemMap = {};
+      sales.forEach(s => {
+        if (!itemMap[s.productName]) itemMap[s.productName] = 0;
+        itemMap[s.productName] += Number(s.qty || 1);
+      });
+
+      let text = `📊 *گزارش دخل روزانه فروشگاه*\n`;
+      text += `🏢 ${db.settings?.name || 'محصولات فرهنگی آبان'}\n`;
+      text += `📅 تاریخ: ${jalaliStr}\n`;
+      text += `-------------------------\n`;
+      text += `💵 *کل فروش و دخل این روز:* ${formatNum(totalAmount)} تومان\n`;
+      text += `📈 *سود ناخالص:* ${formatNum(totalProfit)} تومان\n`;
+      text += `🧾 *تعداد فاکتورها:* ${sales.length} عدد\n\n`;
+      text += `📦 *ریز اقلام فروخته‌شده:*\n`;
+
+      const keys = Object.keys(itemMap);
+      if (keys.length === 0) {
+        text += `(موردی در این تاریخ ثبت نشده است)\n`;
+      } else {
+        keys.forEach((k, idx) => {
+          text += `${idx + 1}. ${k} (${itemMap[k]} عدد)\n`;
+        });
+      }
+      text += `-------------------------\n`;
+      text += `🔒 وضعیت روز: حساب بسته شده`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert(`متن گزارش ${jalaliStr} کپی شد! می‌توانید در تلگرام ارسال کنید.`);
+          haptic();
+        });
+      } else {
+        prompt('متن گزارش روز را کپی کنید:', text);
+      }
+    }
+
+    function openDailyClosingModal() {
+      const todayIso = getTehranTodayIso();
+      const todaySales = (db.sales || []).filter(s => s.date === todayIso);
+      const totalAmount = todaySales.reduce((acc, s) => acc + Number(s.total || 0), 0);
+      const totalProfit = todaySales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
+
+      document.getElementById('closing-total-amount').innerText = formatNum(totalAmount) + ' تومان';
+      document.getElementById('closing-total-profit').innerText = formatNum(totalProfit);
+      document.getElementById('closing-total-count').innerText = formatNum(todaySales.length);
+
+      const itemMap = {};
+      todaySales.forEach(s => {
+        if (!itemMap[s.productName]) itemMap[s.productName] = { qty: 0, total: 0 };
+        itemMap[s.productName].qty += Number(s.qty || 1);
+        itemMap[s.productName].total += Number(s.total || 0);
+      });
+
+      const itemsListEl = document.getElementById('closing-items-list');
+      const itemNames = Object.keys(itemMap);
+
+      if (itemNames.length === 0) {
+        itemsListEl.innerHTML = '<p class="text-slate-400 text-center py-4">امروز هنوز هیچ فروشی ثبت نشده است.</p>';
+      } else {
+        itemsListEl.innerHTML = itemNames.map((name, i) => `
+          <div class="flex justify-between items-center py-1.5">
+            <div>
+              <b class="text-slate-800 dark:text-slate-200">${i + 1}. ${name}</b>
+              <span class="text-slate-400 block text-[10px]">تعداد: ${formatNum(itemMap[name].qty)} عدد</span>
+            </div>
+            <b class="text-emerald-600 font-bold">${formatNum(itemMap[name].total)} ت</b>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('modal-daily-closing').classList.remove('hidden');
+      haptic();
+    }
+
+    function copyDailyReportText() {
+      const todayIso = getTehranTodayIso();
+      copyDayReportSpecific(todayIso);
+    }
+
+    // ================== دانلود قطعی بکاپ ==================
+    async function exportJSONForIPhone() {
+      const dataStr = JSON.stringify(db, null, 2);
+      const fileName = 'hesabdari_backup.json';
+
+      if (navigator.share) {
+        try {
+          const file = new File([dataStr], fileName, { type: 'application/json' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: 'پشتیبان حسابداری آبان' });
+            haptic();
+            return;
+          }
+        } catch (e) {}
+      }
+
+      const blob = new Blob([dataStr], { type: 'application/octet-stream;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 500);
+      haptic();
+    }
+
+    function copyBackupToClipboard() {
+      const dataStr = JSON.stringify(db, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(dataStr).then(() => {
+          alert('کپی شد! متن بکاپ در کلیپ‌بورد ذخیره شد.');
+          haptic();
+        });
+      } else {
+        prompt('متن بکاپ را کپی کنید:', dataStr);
+      }
+    }
+
+    function openPasteRestoreModal() {
+      document.getElementById('paste-backup-input').value = '';
+      document.getElementById('modal-paste-restore').classList.remove('hidden');
+    }
+
+    function applyPastedBackup() {
+      const raw = document.getElementById('paste-backup-input').value.trim();
+      if (!raw) return alert('لطفاً ابتدا متن را Paste کنید.');
+      try {
+        const data = JSON.parse(raw);
+        if (data.products && Array.isArray(data.products)) {
+          if (confirm('آیا اطلاعات فعلی با این نسخه پشتیبان جایگزین شود؟')) {
+            db = data;
+            if (!db.debts) db.debts = [];
+            if (!db.closedDays) db.closedDays = [];
+            saveDB();
+            closeModal('modal-paste-restore');
+            alert('اطلاعات با موفقیت بازگردانی شدند!');
+            haptic();
+          }
+        } else {
+          alert('فرمت متن معتبر نیست.');
+        }
+      } catch (e) {
+        alert('خطا در تحلیل متن پشتیبان.');
+      }
+    }
+
+    // ================== فیلتر و جستجوی کالا ==================
+    function filterSaleSelectOptions() {
+      const q = (document.getElementById('s-product-search')?.value || '').trim().toLowerCase();
+      const sel = document.getElementById('s-product');
+      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q));
+      
+      sel.innerHTML = filtered.map(p => 
+        `<option value="${p.id}">${p.name} (موجودی: ${p.stock})</option>`
+      ).join('');
+
+      onSingleSaleProductChange();
+    }
+
+    function filterInvoiceSelectOptions() {
+      const q = (document.getElementById('inv-search-filter')?.value || '').trim().toLowerCase();
+      const sel = document.getElementById('inv-item-select');
+      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q));
+      
+      sel.innerHTML = filtered.map(p => 
+        `<option value="${p.id}">${p.name} (موجودی: ${p.stock})</option>`
+      ).join('');
+
+      onInvoiceItemSelect();
     }
 
     // ================== فروش تکی ==================
@@ -1273,7 +1581,7 @@
         <div class="bg-white dark:bg-slate-900 p-3.5 rounded-3xl border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs shadow-xs">
           <div>
             <b class="text-sm text-emerald-600 block mb-0.5">${s.productName}</b>
-            <span class="text-slate-400 text-[11px]">${formatNum(s.qty)} عدد | مشتری: ${s.customer || 'عادی'} (${s.date || '-'})</span>
+            <span class="text-slate-400 text-[11px]">${formatNum(s.qty)} عدد | مشتری: ${s.customer || 'عادی'} (${formatIsoToJalali(s.date)})</span>
           </div>
           <div class="text-left flex items-center gap-2">
             <div>
@@ -1330,7 +1638,7 @@
 
       const total = qty * price;
       const profit = total - (qty * (Number(prod.buy) || 0));
-      const todayIso = getTodayDateStr();
+      const todayIso = getTehranTodayIso();
 
       if (id) {
         const sIndex = db.sales.findIndex(x => x.id === id);
@@ -1361,7 +1669,9 @@
     function onInvoiceItemSelect() {
       const pId = document.getElementById('inv-item-select').value;
       const p = db.products.find(x => x.id === pId);
-      if (p) document.getElementById('inv-item-price').value = p.sell;
+      if (p) {
+        document.getElementById('inv-item-price').value = p.sell;
+      }
     }
 
     function addItemToInvoiceList() {
@@ -1504,7 +1814,7 @@
 
       const { discount, finalTotal } = calculateInvoiceTotals();
       const custName = document.getElementById('inv-cust-name').value.trim() || 'مشتری آزاد';
-      const dateStr = getTodayDateStr();
+      const dateStr = getTehranTodayIso();
 
       currentInvoiceItems.forEach(item => {
         const prod = db.products.find(p => p.id === item.productId);
@@ -1535,7 +1845,7 @@
       switchTab('sales');
     }
 
-    // ================== خرید و حساب‌ها ==================
+    // ================== خرید و دفتر حساب ==================
     function renderPurchases() {
       document.getElementById('purchases-list').innerHTML = db.purchases.length === 0
         ? '<div class="text-center py-8 text-slate-400 text-xs">هیچ فاکتور خریدی ثبت نشده است.</div>'
@@ -1772,6 +2082,7 @@
             if (confirm('آیا اطلاعات فایل جایگزین داده‌های فعلی شود؟')) {
               db = data;
               if (!db.debts) db.debts = [];
+              if (!db.closedDays) db.closedDays = [];
               saveDB();
               alert('اطلاعات با موفقیت بازگردانی شدند.');
               haptic();
