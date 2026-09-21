@@ -44,31 +44,9 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    #splash-screen {
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen pb-safe">
-
-  <!-- ================== صفحه ورودی (Splash Screen) با انیمیشن ۵ ثانیه‌ای و لوگوی موبایل ================== -->
-  <div id="splash-screen" class="fixed inset-0 z-50 bg-gradient-to-tr from-indigo-950 via-slate-900 to-slate-950 flex flex-col items-center justify-center text-white p-6">
-    <div class="relative flex items-center justify-center mb-6">
-      <div class="absolute w-28 h-28 rounded-full bg-indigo-500/20 animate-ping"></div>
-      <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-2xl shadow-indigo-500/50">
-        <!-- آیکون موبایل و گجت -->
-        <svg class="w-12 h-12 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6"/>
-        </svg>
-      </div>
-    </div>
-    <h2 class="text-3xl font-black tracking-wider bg-gradient-to-r from-indigo-300 via-white to-violet-300 bg-clip-text text-transparent mb-2">فروشگاه آبان</h2>
-    <p class="text-xs text-indigo-200/70 tracking-widest uppercase mb-8">Aban Cultural Products</p>
-    <div class="w-40 h-1.5 bg-white/10 rounded-full overflow-hidden">
-      <div id="splash-progress" class="w-0 h-full bg-gradient-to-r from-indigo-500 to-violet-400 transition-all duration-[3500ms] linear"></div>
-    </div>
-  </div>
 
   <!-- ================== نوار بالای صفحه (Header) ================== -->
   <header class="sticky top-0 z-30 backdrop-blur-lg bg-white/90 dark:bg-slate-900/90 border-b border-slate-200/90 dark:border-slate-800 px-4 py-3 flex items-center justify-between shadow-xs">
