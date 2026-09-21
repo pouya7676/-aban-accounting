@@ -6,10 +6,10 @@
   <title>محصولات فرهنگی آبان - سیستم جامع حسابداری</title>
   
   <!-- کتابخانه‌ها -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="[https://telegram.org/js/telegram-web-app.js](https://telegram.org/js/telegram-web-app.js)"></script>
+  <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+  <script src="[https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js)"></script>
+  <script src="[https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js](https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js)"></script>
   
   <script>
     tailwind.config = {
@@ -24,9 +24,9 @@
     }
   </script>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)">
+  <link href="[https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap)" rel="stylesheet">
   
   <style>
     body {
@@ -129,25 +129,29 @@
         </div>
       </div>
 
-      <!-- پنل کاربردی: ثبت سریع و فوری فروش در داشبورد -->
+      <!-- پنل کاربردی: ثبت سریع و فوری فروش تکی مستقیم در داشبورد با سرچ زنده -->
       <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
           <h2 class="font-bold text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
             <span class="text-base">⚡</span>
-            <span>ثبت فروش (تراکنش سریع)</span>
+            <span>ثبت سریع و فوری فروش در دخل امروز</span>
           </h2>
-          <span class="text-[10px] text-indigo-500 font-bold" id="quick-sale-stock-badge">موجودی: -</span>
+          <span class="text-[10px] text-slate-400">بدون معطلی</span>
         </div>
 
         <div class="space-y-2.5 text-xs">
           <div>
-            <input type="text" id="quick-sale-search" oninput="filterQuickSaleProducts()" placeholder="🔍 سرچ نام کالا..." class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-1.5 font-bold focus:ring-2 focus:ring-emerald-500">
-            <select id="quick-sale-product" onchange="onQuickSaleProductChange()" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-semibold"></select>
+            <div class="flex justify-between items-center mb-1">
+              <label class="font-bold text-slate-500">🔍 سرچ کالا:</label>
+              <span class="text-[10px] text-indigo-500 font-bold" id="quick-sale-stock-badge">موجودی: -</span>
+            </div>
+            <input type="text" id="quick-sale-search" oninput="filterQuickSaleProducts()" placeholder="نام کالا را اینجا سرچ کنید (مثلاً: فلش، انکر، مک دودو...)" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-indigo-200 dark:border-indigo-800/80 mb-1.5 font-bold focus:ring-2 focus:ring-indigo-500">
+            <select id="quick-sale-product" onchange="onQuickSaleProductChange()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-semibold"></select>
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block font-bold text-slate-500 mb-1">تعداد:</label>
+              <label class="block font-bold text-slate-500 mb-1">تعداد فروش:</label>
               <div class="flex items-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-1">
                 <button type="button" onclick="adjustQuickSaleQty(-1)" class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 font-bold active:scale-90">-</button>
                 <input type="number" id="quick-sale-qty" min="1" value="1" class="w-full text-center bg-transparent font-black text-xs" oninput="updateQuickSaleTotal()">
@@ -156,15 +160,15 @@
             </div>
 
             <div>
-              <label class="block font-bold text-slate-500 mb-1">قیمت واحد (تومان):</label>
-              <input type="number" id="quick-sale-price" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold" oninput="updateQuickSaleTotal()">
+              <label class="block font-bold text-slate-500 mb-1">قیمت واحد فروش (تومان):</label>
+              <input type="number" id="quick-sale-price" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold" oninput="updateQuickSaleTotal()">
             </div>
           </div>
 
           <div class="flex items-center justify-between pt-1">
-            <span class="text-xs text-slate-500">جمع: <b id="quick-sale-total" class="text-emerald-600 dark:text-emerald-400 text-sm font-black">۰ تومان</b></span>
-            <button type="button" onclick="executeQuickSale()" class="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs shadow-md shadow-emerald-600/25 active:scale-95 transition-all">
-              ✓ ثبت فروش
+            <span class="text-[11px] text-slate-400">مجموع: <b id="quick-sale-total" class="text-emerald-600 dark:text-emerald-400 text-xs">۰ تومان</b></span>
+            <button type="button" onclick="executeQuickSale()" class="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs shadow-md shadow-emerald-600/25 active:scale-95 transition-all">
+              + ثبت آنی در دخل امروز
             </button>
           </div>
         </div>
@@ -245,6 +249,18 @@
         </div>
       </div>
 
+      <!-- دکمه‌های اقدام سریع -->
+      <div class="grid grid-cols-2 gap-3 pt-1">
+        <button onclick="switchTab('daily-archive')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-lg shadow-teal-600/25 active:scale-95 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>دفتر دخل و بستن روزانه</span>
+        </button>
+        <button onclick="switchTab('invoice')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          <span>صدور فاکتور مشتری</span>
+        </button>
+      </div>
+
       <!-- هشدار موجودی کم -->
       <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
         <div class="flex items-center justify-between">
@@ -258,7 +274,7 @@
       </div>
     </section>
 
-    <!-- ۲. تب انبار کالاها -->
+    <!-- ۲. تب انبار کالاها (با دسته‌بندی و فیلتر سریع) -->
     <section id="tab-inventory" class="hidden space-y-3">
       <div class="flex gap-2">
         <div class="relative flex-1">
@@ -276,7 +292,7 @@
       <div id="inventory-list" class="space-y-3 pt-1"></div>
     </section>
 
-    <!-- ۳. تب اختصاصی: دفتر دخل روزانه با قابلیت بستن و باز کردن قفل -->
+    <!-- ۳. تب اختصاصی: دفتر دخل روزانه (امکان باز و بسته کردن دخل هر روز + ویرایش و حذف تک تک فروش‌ها) -->
     <section id="tab-daily-archive" class="hidden space-y-4">
       <div class="bg-gradient-to-r from-teal-700 to-emerald-800 text-white rounded-3xl p-4 shadow-md space-y-2">
         <div class="flex justify-between items-center">
@@ -290,8 +306,9 @@
         </div>
       </div>
 
+      <!-- راهنمای وضعیت -->
       <div class="flex items-center justify-between text-[11px] px-2 text-slate-500">
-        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> دخل باز 🔓</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> دخل باز (در حال ثبت)</span>
         <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> دخل بسته و قفل شده 🔒</span>
       </div>
 
@@ -348,10 +365,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <h2 class="font-black text-sm">فرم صدور فاکتور رسمی مشتری</h2>
           </div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-[11px] text-slate-400">شماره فاکتور:</span>
-            <input type="number" id="invoice-custom-number" value="101" class="w-16 px-2 py-1 text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold">
-          </div>
+          <span class="text-[11px] text-slate-400" id="invoice-number-display">فاکتور #۱۰۱</span>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -512,7 +526,7 @@
 
         <div class="grid grid-cols-2 gap-2 text-xs font-bold pt-1">
           <button onclick="openPasteRestoreModal()" class="p-2.5 rounded-xl bg-violet-50 hover:bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/60 flex items-center justify-center gap-1 active:scale-95 transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
             <span>بازیابی با پیست (Paste)</span>
           </button>
 
@@ -876,7 +890,6 @@
     }
 
     const STORAGE_KEYS = [
-      'SHOP_ACCOUNTING_DATA_V13',
       'SHOP_ACCOUNTING_DATA_V12',
       'SHOP_ACCOUNTING_DATA_V11',
       'SHOP_ACCOUNTING_DATA_V10',
@@ -888,7 +901,7 @@
       'SHOP_ACCOUNTING_APP_V3',
       'APP_ACCOUNTING_DATA_V1'
     ];
-    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V13';
+    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V12';
 
     const DEFAULT_PRODUCTS = [
       { id: '1', name: 'فلش ۸ گیگ', category: 'کارت حافظه (فلش)', buy: 650000, sell: 1000000, stock: 2 },
@@ -1322,7 +1335,7 @@
       }
     }
 
-    // ================== دفتر دخل روزانه با قابلیت قفل و بازگشایی دستی ==================
+    // ================== دفتر دخل و بایگانی روزانه (با قابلیت باز/بسته کردن دستی هر روز) ==================
     function renderDailyArchive() {
       const todayIso = getTehranTodayIso();
       const groups = {};
@@ -1404,7 +1417,7 @@
 
             <div>
               <button onclick="toggleDayDetails('${day.dateKey}')" class="w-full py-1.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] font-bold flex items-center justify-between transition-all">
-                <span>📋 مشاهده و ویرایش فاکتورهای این روز (${day.sales.length} مورد)</span>
+                <span>📋 مشاهده، ویرایش و حذف فاکتورهای این روز (${day.sales.length} مورد)</span>
                 <span id="arrow-${day.dateKey}">▼</span>
               </button>
               
@@ -1869,7 +1882,7 @@
         const { subtotal, discount, finalTotal } = calculateInvoiceTotals();
         const custName = document.getElementById('inv-cust-name').value.trim() || 'مشتری آزاد';
         const custPhone = document.getElementById('inv-cust-phone').value.trim() || '-';
-        const invNum = document.getElementById('invoice-custom-number').value || '101';
+        const invNum = db.invoiceCount || 101;
         const dateStr = new Intl.DateTimeFormat('fa-IR').format(new Date());
 
         document.getElementById('print-shop-name').innerText = db.settings?.name || 'محصولات فرهنگی آبان';
@@ -1953,10 +1966,8 @@
         });
       });
 
-      const customNum = Number(document.getElementById('invoice-custom-number').value) || 101;
-      db.invoiceCount = customNum + 1;
-      document.getElementById('invoice-custom-number').value = db.invoiceCount;
-
+      db.invoiceCount = (db.invoiceCount || 100) + 1;
+      document.getElementById('invoice-number-display').innerText = `فاکتور #${db.invoiceCount}`;
       currentInvoiceItems = [];
       document.getElementById('inv-cust-name').value = '';
       document.getElementById('inv-cust-phone').value = '';
