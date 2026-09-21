@@ -34,7 +34,7 @@
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
-    /* فاصله کافی از پایین برای آیفون و منوی شناور */
+    /* فاصله ایمن پایین صفحه برای جلوگیری از تداخل با نوار خانگی آیفون */
     .pb-safe {
       padding-bottom: calc(env(safe-area-inset-bottom, 24px) + 110px);
     }
@@ -59,7 +59,7 @@
       </div>
       <div>
         <h1 class="font-black text-sm sm:text-base leading-tight" id="store-title">محصولات فرهنگی آبان</h1>
-        <p class="text-[11px] text-slate-500 dark:text-slate-400" id="header-date">در حال بارگذاری...</p>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400" id="header-date">در حال دریافت تاریخ...</p>
       </div>
     </div>
     
@@ -129,29 +129,25 @@
         </div>
       </div>
 
-      <!-- پنل کاربردی: ثبت سریع و فوری فروش تکی مستقیم در داشبورد با سرچ زنده -->
+      <!-- پنل کاربردی: ثبت سریع و فوری فروش در داشبورد -->
       <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
           <h2 class="font-bold text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
             <span class="text-base">⚡</span>
-            <span>ثبت سریع و فوری فروش در دخل امروز</span>
+            <span>ثبت فروش (تراکنش سریع)</span>
           </h2>
-          <span class="text-[10px] text-slate-400">بدون معطلی</span>
+          <span class="text-[10px] text-indigo-500 font-bold" id="quick-sale-stock-badge">موجودی: -</span>
         </div>
 
         <div class="space-y-2.5 text-xs">
           <div>
-            <div class="flex justify-between items-center mb-1">
-              <label class="font-bold text-slate-500">🔍 سرچ کالا:</label>
-              <span class="text-[10px] text-indigo-500 font-bold" id="quick-sale-stock-badge">موجودی: -</span>
-            </div>
-            <input type="text" id="quick-sale-search" oninput="filterQuickSaleProducts()" placeholder="نام کالا را اینجا سرچ کنید (مثلاً: فلش، انکر، مک دودو...)" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-indigo-200 dark:border-indigo-800/80 mb-1.5 font-bold focus:ring-2 focus:ring-indigo-500">
-            <select id="quick-sale-product" onchange="onQuickSaleProductChange()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-semibold"></select>
+            <input type="text" id="quick-sale-search" oninput="filterQuickSaleProducts()" placeholder="🔍 سرچ نام کالا..." class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-1.5 font-bold focus:ring-2 focus:ring-emerald-500">
+            <select id="quick-sale-product" onchange="onQuickSaleProductChange()" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-semibold"></select>
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block font-bold text-slate-500 mb-1">تعداد فروش:</label>
+              <label class="block font-bold text-slate-500 mb-1">تعداد:</label>
               <div class="flex items-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-1">
                 <button type="button" onclick="adjustQuickSaleQty(-1)" class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 font-bold active:scale-90">-</button>
                 <input type="number" id="quick-sale-qty" min="1" value="1" class="w-full text-center bg-transparent font-black text-xs" oninput="updateQuickSaleTotal()">
@@ -160,15 +156,15 @@
             </div>
 
             <div>
-              <label class="block font-bold text-slate-500 mb-1">قیمت واحد فروش (تومان):</label>
-              <input type="number" id="quick-sale-price" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold" oninput="updateQuickSaleTotal()">
+              <label class="block font-bold text-slate-500 mb-1">قیمت واحد (تومان):</label>
+              <input type="number" id="quick-sale-price" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold" oninput="updateQuickSaleTotal()">
             </div>
           </div>
 
           <div class="flex items-center justify-between pt-1">
-            <span class="text-[11px] text-slate-400">مجموع: <b id="quick-sale-total" class="text-emerald-600 dark:text-emerald-400 text-xs">۰ تومان</b></span>
-            <button type="button" onclick="executeQuickSale()" class="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs shadow-md shadow-emerald-600/25 active:scale-95 transition-all">
-              + ثبت آنی در دخل امروز
+            <span class="text-xs text-slate-500">جمع: <b id="quick-sale-total" class="text-emerald-600 dark:text-emerald-400 text-sm font-black">۰ تومان</b></span>
+            <button type="button" onclick="executeQuickSale()" class="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs shadow-md shadow-emerald-600/25 active:scale-95 transition-all">
+              ✓ ثبت فروش
             </button>
           </div>
         </div>
@@ -249,18 +245,6 @@
         </div>
       </div>
 
-      <!-- دکمه‌های اقدام سریع -->
-      <div class="grid grid-cols-2 gap-3 pt-1">
-        <button onclick="switchTab('daily-archive')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-lg shadow-teal-600/25 active:scale-95 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span>دفتر دخل و بستن روزانه</span>
-        </button>
-        <button onclick="switchTab('invoice')" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 active:scale-95 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>صدور فاکتور مشتری</span>
-        </button>
-      </div>
-
       <!-- هشدار موجودی کم -->
       <div class="bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
         <div class="flex items-center justify-between">
@@ -274,7 +258,7 @@
       </div>
     </section>
 
-    <!-- ۲. تب انبار کالاها (با دسته‌بندی و فیلتر سریع) -->
+    <!-- ۲. تب انبار کالاها -->
     <section id="tab-inventory" class="hidden space-y-3">
       <div class="flex gap-2">
         <div class="relative flex-1">
@@ -287,13 +271,12 @@
         </button>
       </div>
 
-      <!-- تب‌های دسته‌بندی کالاها (نوار افقی شیک و بدون اسکرول‌بار اضافه) -->
       <div id="inventory-category-pills" class="flex gap-1.5 overflow-x-auto no-scrollbar py-1"></div>
 
       <div id="inventory-list" class="space-y-3 pt-1"></div>
     </section>
 
-    <!-- ۳. تب اختصاصی: دفتر دخل روزانه (امکان باز و بسته کردن دخل هر روز + ویرایش و حذف تک تک فروش‌ها) -->
+    <!-- ۳. تب اختصاصی: دفتر دخل روزانه با قابلیت بستن و باز کردن قفل -->
     <section id="tab-daily-archive" class="hidden space-y-4">
       <div class="bg-gradient-to-r from-teal-700 to-emerald-800 text-white rounded-3xl p-4 shadow-md space-y-2">
         <div class="flex justify-between items-center">
@@ -307,13 +290,11 @@
         </div>
       </div>
 
-      <!-- راهنمای وضعیت -->
       <div class="flex items-center justify-between text-[11px] px-2 text-slate-500">
-        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> دخل باز (در حال ثبت)</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> دخل باز 🔓</span>
         <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> دخل بسته و قفل شده 🔒</span>
       </div>
 
-      <!-- لیست کارت‌های روزها (۲۸ شهریور، ۲۹ شهریور، ۳۰ شهریور، امروز و ...) -->
       <div id="daily-archive-list" class="space-y-3"></div>
     </section>
 
@@ -367,7 +348,10 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <h2 class="font-black text-sm">فرم صدور فاکتور رسمی مشتری</h2>
           </div>
-          <span class="text-[11px] text-slate-400" id="invoice-number-display">فاکتور #۱۰۱</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[11px] text-slate-400">شماره فاکتور:</span>
+            <input type="number" id="invoice-custom-number" value="101" class="w-16 px-2 py-1 text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold">
+          </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -528,7 +512,7 @@
 
         <div class="grid grid-cols-2 gap-2 text-xs font-bold pt-1">
           <button onclick="openPasteRestoreModal()" class="p-2.5 rounded-xl bg-violet-50 hover:bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/60 flex items-center justify-center gap-1 active:scale-95 transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
             <span>بازیابی با پیست (Paste)</span>
           </button>
 
@@ -555,7 +539,7 @@
       <!-- ۱. داشبورد -->
       <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex-shrink-0 min-w-[50px] flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 transition-all">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
         </svg>
         <span class="text-[10px] font-black leading-none">داشبورد</span>
       </button>
@@ -892,6 +876,7 @@
     }
 
     const STORAGE_KEYS = [
+      'SHOP_ACCOUNTING_DATA_V13',
       'SHOP_ACCOUNTING_DATA_V12',
       'SHOP_ACCOUNTING_DATA_V11',
       'SHOP_ACCOUNTING_DATA_V10',
@@ -903,10 +888,7 @@
       'SHOP_ACCOUNTING_APP_V3',
       'APP_ACCOUNTING_DATA_V1'
     ];
-    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V12';
-
-    // تنظیم ۲۸ و ۲۹ شهریور به صورت استاندارد
-    const PREVIOUS_DATE_ISO = '2026-09-19'; // ۲۸ شهریور
+    const ACTIVE_KEY = 'SHOP_ACCOUNTING_DATA_V13';
 
     const DEFAULT_PRODUCTS = [
       { id: '1', name: 'فلش ۸ گیگ', category: 'کارت حافظه (فلش)', buy: 650000, sell: 1000000, stock: 2 },
@@ -941,7 +923,7 @@
       debts: [],
       sales: [],
       purchases: [],
-      closedDays: [PREVIOUS_DATE_ISO],
+      closedDays: [],
       invoiceCount: 101
     };
 
@@ -960,7 +942,6 @@
               if (!db.debts) db.debts = [];
               if (!db.closedDays) db.closedDays = [];
 
-              // اطمینان از دسته‌بندی داشتن کالاها
               db.products.forEach(p => {
                 if (!p.category) {
                   const def = DEFAULT_PRODUCTS.find(x => x.name.trim() === p.name.trim());
@@ -984,7 +965,6 @@
       return new Intl.NumberFormat('fa-IR').format(Math.round(n || 0));
     }
 
-    // تاریخ امروز به وقت رسمی ایران
     function getTehranTodayIso() {
       try {
         return new Intl.DateTimeFormat('en-CA', {
@@ -998,7 +978,6 @@
       }
     }
 
-    // تبدیل تاریخ میلادی به تاریخ کامل شمسی
     function formatIsoToJalali(isoStr) {
       if (!isoStr) return 'نامشخص';
       try {
@@ -1066,6 +1045,12 @@
       document.getElementById('dash-today-sales-count').innerText = formatNum(todaySales.length);
       document.getElementById('dash-today-sales-profit').innerText = formatNum(todaySalesProfit);
 
+      const isTodayClosed = db.closedDays && db.closedDays.includes(todayIso);
+      const closeBtn = document.getElementById('btn-dash-closing-toggle');
+      if (closeBtn) {
+        closeBtn.innerHTML = isTodayClosed ? '<span>🔓 باز کردن مجدد</span>' : '<span>🔒 بستن دخل</span>';
+      }
+
       const totalSales = db.sales.reduce((acc, s) => acc + (Number(s.total) || 0), 0);
       const totalPurchases = db.purchases.reduce((acc, p) => acc + (Number(p.total) || 0), 0);
       const totalProfit = db.sales.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
@@ -1129,7 +1114,7 @@
     function filterQuickSaleProducts() {
       const q = (document.getElementById('quick-sale-search')?.value || '').trim().toLowerCase();
       const sel = document.getElementById('quick-sale-product');
-      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q));
+      const filtered = db.products.filter(p => p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)));
       sel.innerHTML = filtered.map(p => `<option value="${p.id}">${p.name} (موجودی: ${p.stock})</option>`).join('');
       onQuickSaleProductChange();
     }
@@ -1139,6 +1124,7 @@
       const p = db.products.find(x => x.id === pId);
       if (p) {
         document.getElementById('quick-sale-price').value = p.sell || 0;
+        document.getElementById('quick-sale-stock-badge').innerText = `موجودی: ${formatNum(p.stock)} عدد`;
       }
       updateQuickSaleTotal();
     }
@@ -1183,12 +1169,14 @@
 
       saveDB();
       document.getElementById('quick-sale-qty').value = '1';
+      document.getElementById('quick-sale-search').value = '';
+      populateQuickSaleSelect();
       updateQuickSaleTotal();
       alert(`فروش "${prod.name}" ثبت شد و به دخل امروز اضافه گردید! ✓`);
       haptic();
     }
 
-    // ================== دسته‌بندی‌های انبار (Categories) ==================
+    // ================== دسته‌بندی‌های انبار ==================
     function renderCategoryPills() {
       const container = document.getElementById('inventory-category-pills');
       if (!container) return;
@@ -1235,7 +1223,6 @@
       haptic();
     }
 
-    // ================== لیست انبار کالاها ==================
     function renderInventory() {
       const q = (document.getElementById('inv-search')?.value || '').trim().toLowerCase();
       let list = db.products || [];
@@ -1335,7 +1322,7 @@
       }
     }
 
-    // ================== سیستم آرشیو و دفتر دخل روزانه با قابلیت ویرایش فاکتورهای هر روز ==================
+    // ================== دفتر دخل روزانه با قابلیت قفل و بازگشایی دستی ==================
     function renderDailyArchive() {
       const todayIso = getTehranTodayIso();
       const groups = {};
@@ -1343,6 +1330,7 @@
       (db.sales || []).forEach(s => {
         const dKey = s.date || todayIso;
         if (!groups[dKey]) {
+          const isClosed = db.closedDays && db.closedDays.includes(dKey);
           groups[dKey] = {
             dateKey: dKey,
             jalaliDate: formatIsoToJalali(dKey),
@@ -1351,7 +1339,7 @@
             totalProfit: 0,
             count: 0,
             isToday: (dKey === todayIso),
-            isClosed: (dKey < todayIso) || (db.closedDays && db.closedDays.includes(dKey))
+            isClosed: isClosed
           };
         }
         groups[dKey].sales.push(s);
@@ -1360,7 +1348,6 @@
         groups[dKey].count += 1;
       });
 
-      // روز جاری همیشه در ابتدای دفتر دخل باشد
       if (!groups[todayIso]) {
         groups[todayIso] = {
           dateKey: todayIso,
@@ -1388,13 +1375,16 @@
                 <b class="text-sm text-slate-900 dark:text-white block">${day.jalaliDate}</b>
                 <span class="text-[10px] text-slate-400">${day.dateKey}</span>
               </div>
-              <span class="px-2.5 py-1 rounded-xl text-[10px] font-black ${
-                isToday 
-                  ? (isClosed ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300') 
-                  : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
-              }">
-                ${isToday ? (isClosed ? '🔒 دخل امروز بسته شد' : '🟢 امروز (در حال فروش)') : '🔒 حساب روز بسته شده'}
-              </span>
+              <div class="flex items-center gap-1.5">
+                <span class="px-2.5 py-1 rounded-xl text-[10px] font-black ${
+                  isClosed ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                }">
+                  ${isClosed ? '🔒 دخل بسته شد' : (isToday ? '🟢 امروز (در حال فروش)' : '🔓 دخل باز است')}
+                </span>
+                <button onclick="toggleDayCloseStatus('${day.dateKey}')" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                  ${isClosed ? '🔓 بازگشایی دخل' : '🔒 بستن دخل'}
+                </button>
+              </div>
             </div>
 
             <div class="grid grid-cols-3 gap-2 bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-2xl text-center">
@@ -1412,7 +1402,6 @@
               </div>
             </div>
 
-            <!-- ریز تراکنش‌های این روز با دکمه ویرایش و حذف تک تک فروش‌ها -->
             <div>
               <button onclick="toggleDayDetails('${day.dateKey}')" class="w-full py-1.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] font-bold flex items-center justify-between transition-all">
                 <span>📋 مشاهده و ویرایش فاکتورهای این روز (${day.sales.length} مورد)</span>
@@ -1428,23 +1417,18 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <b class="text-emerald-600 font-bold">${formatNum(s.total)} ت</b>
-                      <button onclick="openEditSaleModal('${s.id}')" class="text-indigo-600 font-bold px-1 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-[10px]">ویرایش</button>
-                      <button onclick="deleteSale('${s.id}')" class="text-rose-600 font-bold px-1 py-0.5 rounded bg-rose-50 dark:bg-rose-950 text-[10px]">حذف</button>
+                      <button onclick="openEditSaleModal('${s.id}')" class="text-indigo-600 font-bold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-[10px]">ویرایش</button>
+                      <button onclick="deleteSale('${s.id}')" class="text-rose-600 font-bold px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950 text-[10px]">حذف</button>
                     </div>
                   </div>
                 `).join('')}
               </div>
             </div>
 
-            <div class="flex gap-2 pt-1">
-              <button onclick="copyDayReportSpecific('${day.dateKey}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold active:scale-95 transition-all flex items-center justify-center gap-1">
+            <div class="pt-1">
+              <button onclick="copyDayReportSpecific('${day.dateKey}')" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold active:scale-95 transition-all flex items-center justify-center gap-1">
                 <span>کپی گزارش این روز برای تلگرام</span>
               </button>
-              ${isToday && !isClosed ? `
-                <button onclick="markTodayAsClosed()" class="py-2 px-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-[11px] font-black active:scale-95 transition-all">
-                  بستن دخل
-                </button>
-              ` : ''}
             </div>
           </div>
         `;
@@ -1460,15 +1444,17 @@
       }
     }
 
-    function markTodayAsClosed() {
-      const todayIso = getTehranTodayIso();
+    function toggleDayCloseStatus(dateKey) {
       if (!db.closedDays) db.closedDays = [];
-      if (!db.closedDays.includes(todayIso)) {
-        db.closedDays.push(todayIso);
+      const idx = db.closedDays.indexOf(dateKey);
+      if (idx !== -1) {
+        db.closedDays.splice(idx, 1);
+        alert(`دخل ${formatIsoToJalali(dateKey)} با موفقیت باز شد! 🟢`);
+      } else {
+        db.closedDays.push(dateKey);
+        alert(`دخل ${formatIsoToJalali(dateKey)} بسته و قفل شد! 🔒`);
       }
       saveDB();
-      closeModal('modal-daily-closing');
-      alert('حساب و دخل امروز با موفقیت بسته شد و در بایگانی ثبت گردید! ✓');
       haptic();
     }
 
@@ -1502,7 +1488,7 @@
         });
       }
       text += `-------------------------\n`;
-      text += `🔒 وضعیت روز: حساب بسته شده`;
+      text += `🔒 وضعیت روز: ${db.closedDays && db.closedDays.includes(dateKey) ? 'بسته شده' : 'باز'}`;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
@@ -1516,45 +1502,7 @@
 
     function openDailyClosingModal() {
       const todayIso = getTehranTodayIso();
-      const todaySales = (db.sales || []).filter(s => s.date === todayIso);
-      const totalAmount = todaySales.reduce((acc, s) => acc + Number(s.total || 0), 0);
-      const totalProfit = todaySales.reduce((acc, s) => acc + Number(s.profit || 0), 0);
-
-      document.getElementById('closing-total-amount').innerText = formatNum(totalAmount) + ' تومان';
-      document.getElementById('closing-total-profit').innerText = formatNum(totalProfit);
-      document.getElementById('closing-total-count').innerText = formatNum(todaySales.length);
-
-      const itemMap = {};
-      todaySales.forEach(s => {
-        if (!itemMap[s.productName]) itemMap[s.productName] = { qty: 0, total: 0 };
-        itemMap[s.productName].qty += Number(s.qty || 1);
-        itemMap[s.productName].total += Number(s.total || 0);
-      });
-
-      const itemsListEl = document.getElementById('closing-items-list');
-      const itemNames = Object.keys(itemMap);
-
-      if (itemNames.length === 0) {
-        itemsListEl.innerHTML = '<p class="text-slate-400 text-center py-4">امروز هنوز هیچ فروشی ثبت نشده است.</p>';
-      } else {
-        itemsListEl.innerHTML = itemNames.map((name, i) => `
-          <div class="flex justify-between items-center py-1.5">
-            <div>
-              <b class="text-slate-800 dark:text-slate-200">${i + 1}. ${name}</b>
-              <span class="text-slate-400 block text-[10px]">تعداد: ${formatNum(itemMap[name].qty)} عدد</span>
-            </div>
-            <b class="text-emerald-600 font-bold">${formatNum(itemMap[name].total)} ت</b>
-          </div>
-        `).join('');
-      }
-
-      document.getElementById('modal-daily-closing').classList.remove('hidden');
-      haptic();
-    }
-
-    function copyDailyReportText() {
-      const todayIso = getTehranTodayIso();
-      copyDayReportSpecific(todayIso);
+      toggleDayCloseStatus(todayIso);
     }
 
     // ================== دانلود قطعی بکاپ ==================
@@ -1921,7 +1869,7 @@
         const { subtotal, discount, finalTotal } = calculateInvoiceTotals();
         const custName = document.getElementById('inv-cust-name').value.trim() || 'مشتری آزاد';
         const custPhone = document.getElementById('inv-cust-phone').value.trim() || '-';
-        const invNum = db.invoiceCount || 101;
+        const invNum = document.getElementById('invoice-custom-number').value || '101';
         const dateStr = new Intl.DateTimeFormat('fa-IR').format(new Date());
 
         document.getElementById('print-shop-name').innerText = db.settings?.name || 'محصولات فرهنگی آبان';
@@ -2005,8 +1953,10 @@
         });
       });
 
-      db.invoiceCount = (db.invoiceCount || 100) + 1;
-      document.getElementById('invoice-number-display').innerText = `فاکتور #${db.invoiceCount}`;
+      const customNum = Number(document.getElementById('invoice-custom-number').value) || 101;
+      db.invoiceCount = customNum + 1;
+      document.getElementById('invoice-custom-number').value = db.invoiceCount;
+
       currentInvoiceItems = [];
       document.getElementById('inv-cust-name').value = '';
       document.getElementById('inv-cust-phone').value = '';
